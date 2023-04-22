@@ -227,6 +227,8 @@ def checkoutFunc():
         total = total + subtotal
         writeOrderToExcel(ID, name, quantity, unitPrice, subtotal, date, time1)
     writeTotalToExcel(total)
+
+
     # create new windows
     newWin = Toplevel()
     newWin.title("結帳")
@@ -267,6 +269,7 @@ def writeTotalToExcel(total):
     sheet = wb.active  # 打開一個工作欄
     sheet.cell(row=sheet.max_row, column=8).value = total
     wb.save('/Users/zhangyouxuan/Documents/面試作品/POS/POS.xlsx')
+    wb.close()
 
 def writeOrderToExcel(ID, name, quantity, unitPrice, subtotal, date, time1):
     global wb
@@ -281,6 +284,7 @@ def writeOrderToExcel(ID, name, quantity, unitPrice, subtotal, date, time1):
     sheet.cell(row=t1, column=6).value = date
     sheet.cell(row=t1, column=7).value = time1
     wb.save('/Users/zhangyouxuan/Documents/面試作品/POS/POS.xlsx')
+    wb.close()
 
 
 if not os.path.exists('/Users/zhangyouxuan/Documents/面試作品/POS/POS.xlsx'):
@@ -288,7 +292,7 @@ if not os.path.exists('/Users/zhangyouxuan/Documents/面試作品/POS/POS.xlsx')
     df = pd.DataFrame({'訂單編號': [], '品名': [], '數量': [], '單價': [],
                        '小計': [], '銷貨日期': [], '銷貨時間': [], '總計': []})
     df.to_excel(data, sheet_name='Sheet1', index=False)
-    data.save()
+    data.close()
 else:
     print("")
 
